@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タイピングゲーム</title>
+  <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+  <div class="typgame">
+    <div id="time">00:00:00.000</div>
+    <div class="btn">
+      <input id="start" type="button" value="start">
+      <input id="reset" type="button" value="reset">
+    </div>
+    <div id="characters">
+      <span id="typed"></span><span id="untyped">sake</span>
+    </div>
+    <div id="result"></div>
+    <img src="002.png" class="icon">
+  </div>
+
+<script>
+const timeElement = document.getElementById('time');
+const start = document.getElementById('start');
+const reset = document.getElementById('reset');
+const typedField = document.getElementById('typed');
+const untypedField = document.getElementById('untyped');
+const result = document.getElementById('result');
+const time = 20000
+
+let missTypeContent = 0;
+let succsesTypeContent =0;
+
+
+const strs=[
+  "beer",
+  "redwine",
+  "whitewine",
+  "wiskey",
+  "rum",
+  "soda",
+  "umesyu",
+  "riqul"
+];
+
+function randumInt(max){
+  return Math.floor(Math.random()*Math.floor(max));
+}
+
+function nextString(){
+  const idx = randumInt(strs.length);
+  return strs[idx];
+}
+
+function updateTextField(){
+  typedField.textContent = typed;
+  untypedField.textContent =untyped;
+}
+
+function next(){
+  typed ="";
+  untyped =nextString();
+  updateTextField();
+  
+}
+
+function updateTime() {
+      const ms = remainning % 1000;
+      const s = Math.floor(remainning / 1000)%60;
+      const m = Math.floor(remainning / (1000*60))%60;
+      const h = Math.floor(remainning / (1000*60*60));
+   
+      const msStr = ms.toString().padStart(3,'0');
+      const sStr = s.toString().padStart(2,'0');
+      const mStr = m.toString().padStart(2,'0');
+      const hStr = h.toString().padStart(2,'0');
+
+      timeElement.innerHTML = `${hStr}:${mStr}:${sStr}.${msStr}`;
+    }
+
+    function keyDownCallback(e){
+      if(e.key !==untyped.substring(0,1)){
+        missTypeContent +=1;
+        return;
+        }
+        succsesTypeContent +=1;
+        typed += untyped.substring(0,1);
+        untyped = untyped.substring(1);
+        typedField.style.fontSize="1.1em";
+        updateTextField();
+        if(untyped===""){
+        next();
+    } 
+  }
+
+      function gameStart(){
+        let pre = new Date();
+          intervalId = setInterval(function(){
+            const now =new Date();
+            remainning -= now - pre;
+            if(remainning<0){
+              gameEnd();
+            }
+            pre = now;
+            updateTime();
+            // console.log(elapsed);
+          },10); 
+
+          document.addEventListener("keydown",keyDownCallback);
+          next();
+        
+        }
+
+    function gameEnd(){
+      remainning=0;
+      updateTime();
+      clearInterval(intervalId);
+      intervalId=null;
+      document.removeEventListener('keydown',keyDownCallback)
+      result.textContent=`ミスタイプ数:${missTypeContent},総タイプ数:${missTypeContent+succsesTypeContent},だったね！もう一軒行こうか？`
+    }
+
+let remainning = time;
+let intervalId = null;
+
+    start.addEventListener("click",function(e){
+      if(intervalId !== null){return ;}
+      gameStart();  
+      
+    });
+
+    reset.addEventListener("click",function(e){
+      document.removeEventListener('keydown',keyDownCallback)
+      clearInterval(intervalId);
+      intervalId=null;
+      remainning = time;
+      
+      updateTime();
+      next();
+  });
+
+</script>
+
+</body>
+</html>

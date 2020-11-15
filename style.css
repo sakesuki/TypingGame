@@ -1,0 +1,107 @@
+body{
+  padding: 0;
+  margin: 0;
+}
+#characters{
+    margin-top:20px;
+     font-size:4rem;
+     background-color:rgba(168, 172, 148, 0.558);
+  }
+#typed{
+    /* color:gold; */
+    animation: color-change 2s linear infinite;
+  }
+  @keyframes color-change {
+    0%,100%{
+      color:#ccff14;
+    }
+    25%{
+      color:#ffee00;
+    }
+    50%{
+      color:rgb(234, 101, 0);
+    } 
+    70%{
+      color:rgba(10, 29, 155, 0.85)
+    }   
+    
+  }  
+
+@font-face {
+   font-family: 'DSEG';
+   src: url('./DSEG7-Classic/DSEG7Classic-Regular.ttf');
+  }
+
+  #time{
+    font-family: 'DSEG';
+    padding-top:70px ;
+  }
+  .typgame{
+    background:url(saloon002.png);
+    background-color:rgba(149, 15, 15, 0.19);
+    background-blend-mode:lighten;
+    text-align: center;
+    color: white;
+    height: 720px;
+    background-size: cover;
+    object-fit: cover;
+    text-shadow: gray 3px 1.5px;
+    position: relative;
+  }
+
+  #time{
+    font-size: 2.5rem;
+  }
+
+  #result{
+    padding:20px;
+    text-align: center;
+    position: absolute;
+    bottom: 15%;
+    left:50%;
+    transform:translateX(-50% );
+    font-size: 20px;
+    width: auto;
+    height: 50px;
+    background-color:rgba(32, 26, 19, 0.748);
+    color: #fff;
+    font-weight:bold;
+    clip-path: polygon(0% 0%, 100% 0, 100% 75%, 22% 76%, 4% 100%, 7% 75%, 0% 75%);
+    
+  }
+
+  
+#start, #reset{
+  margin:30px 0 ;
+  margin-right:30px ;
+  display: inline-block;
+  text-decoration: none;
+  background: #dbdcd8;
+  color: rgb(82, 96, 98);
+  width: 100px;
+  font-size: 20px;
+  height: 100px;
+  line-height: 50%;
+  border-radius: 50%;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: inset 0px 3px 0 rgba(255,255,255,0.3), 0 3px 3px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  border-bottom: solid 3px #929696;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.65);
+  transition: .4s;
+}
+
+#start:active{
+  -webkit-transform: translateY(1px);
+  transform: translateY(1px);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
+  border-bottom: none;
+}
+
+.icon{
+  width: 115px;
+  position: absolute;
+  left:25%;
+  bottom: 0;
+}
